@@ -3,18 +3,37 @@ user_wins = 0
 opponent_wins = 0
 
 def get_opponent_choice
-  %w[камінь ножиці папір].sample
+  choices = %w[камінь ножиці папір]  
+  random_index = rand(3)
+  choices[random_index]
 end
 
 def determine_winner(user_choice, opponent_choice)
-  if user_choice == opponent_choice
+  user_value = 0
+  opponent_value = 0
+  
+  if user_choice == "камінь"
+    user_value = 1
+  elsif user_choice == "ножиці"
+    user_value = 2
+  elsif user_choice == "папір"
+    user_value = 3
+  end
+
+  if opponent_choice == "камінь"
+    opponent_value = 1
+  elsif opponent_choice == "ножиці"
+    opponent_value = 2
+  elsif opponent_choice == "папір"
+    opponent_value = 3
+  end
+  
+  if user_value == opponent_value
     "Нічия"
-  elsif (user_choice == "камінь" && opponent_choice == "ножиці") ||
-    (user_choice == "ножиці" && opponent_choice == "папір") ||
-    (user_choice == "папір" && opponent_choice == "камінь")
-    "Користувач"
-  else
+  elsif (user_value > opponent_value) || (user_value == 1 && opponent_value == 3)
     "Суперник"
+  else
+    "Користувач"
   end
 end
 
