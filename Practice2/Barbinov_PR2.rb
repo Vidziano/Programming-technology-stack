@@ -22,6 +22,7 @@ def to_rpn(input)
   output = ''
   stack = []
   division_by_zero = false
+  last_was_operator = false
 
   i = 0
   while i < input.length
@@ -45,6 +46,7 @@ def to_rpn(input)
         i += 1
       end
       output += ' '
+      last_was_operator = false
 
     elsif ('a'..'z').include?(current_symbol) || ('A'..'Z').include?(current_symbol)
       while i < input.length && (('a'..'z').include?(input[i]) || ('A'..'Z').include?(input[i]))
@@ -52,19 +54,27 @@ def to_rpn(input)
         i += 1
       end
       output += ' '
+      last_was_operator = false
 
     elsif current_symbol == '-' && (i == 0 || input[i - 1] == '(')
       output += '-'
       i += 1
+      last_was_operator = false
 
     elsif is_operator(current_symbol)
+            if last_was_operator && current_symbol != '(' && current_symbol != ')'
+        puts "Помилка: Зайвий оператор '#{current_symbol}' після іншого оператора."
+        return nil
+      end
       if current_symbol == '('
         stack.push(current_symbol)
+        last_was_operator = false
       elsif current_symbol == ')'
         while !stack.empty? && stack.last != '('
           output += stack.pop + ' '
         end
         stack.pop
+        last_was_operator = false
       else
         if current_symbol == '/' && (i + 1 < input.length && input[i + 1] == '0')
           division_by_zero = true
@@ -74,11 +84,17 @@ def to_rpn(input)
           output += stack.pop + ' '
         end
         stack.push(current_symbol)
+        last_was_operator = true
       end
       i += 1
     end
   end
 
+  if last_was_operator
+    puts "Помилка: Вираз не може закінчуватися оператором."
+    return nil
+  end
+  
   while stack.any?
     output += "#{stack.pop} "
   end
