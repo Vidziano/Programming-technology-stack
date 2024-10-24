@@ -19,7 +19,7 @@ class BankAccount
   def withdraw(amount)
     if amount > 0 && amount <= @balance
       @balance -= amount
-      puts "Ви зняли #{amount} грн з рахунку. Поточний баланс: #{@balance} грн."
+      puts "Ви зняли #{amount} грн з рахунку."
     elsif amount > @balance
       puts "Недостатньо коштів на рахунку!"
     else
