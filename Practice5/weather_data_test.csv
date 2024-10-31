@@ -1,0 +1,7 @@
+time,city,country,temp,clouds,humidity,pressure,wind_direction,wind_speed,weather_description,visibility
+2024-11-01 00:46:40,Lviv,UA,8.86°C,100%,79%,1023 hPa,269°,6.73 m/s,Overcast clouds,10000 m
+2024-11-01 00:46:40,Kharkiv,UA,6°C,91%,77%,1017 hPa,247°,3.09 m/s,Overcast clouds,10000 m
+2024-11-01 00:46:49,London,GB,12.47°C,100%,86%,1025 hPa,0°,0 m/s,Overcast clouds,10000 m
+2024-11-01 00:47:08,Berlin,DE,12.42°C,100%,81%,1023 hPa,257°,6.71 m/s,Overcast clouds,10000 m
+2024-11-01 00:47:09,Warsaw,PL,11.35°C,75%,80%,1019 hPa,260°,8.94 m/s,Broken clouds,10000 m
+2024-11-01 00:47:17,Delhi,IN,21.05°C,0%,68%,1010 hPa,230°,1.03 m/s,Haze,2100 m
