@@ -1,0 +1,23 @@
+[
+  {
+    "title": "тест1",
+    "deadline": "2024-12-28 23:59",
+    "completed": true,
+    "comment": "",
+    "priority": "низький"
+  },
+  {
+    "title": "тест2",
+    "deadline": "2024-11-25 23:59",
+    "completed": false,
+    "comment": "",
+    "priority": "високий"
+  },
+  {
+    "title": "Практика",
+    "deadline": "2025-01-01 23:59",
+    "completed": false,
+    "comment": "стп",
+    "priority": "низький"
+  }
+]
