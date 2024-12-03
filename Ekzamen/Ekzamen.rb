@@ -87,61 +87,61 @@ class Student
 end
 
 # Меню для користувача
-def grades_menu
+def grades_menu(io = $stdin, output = $stdout)
   students = []
 
   loop do
-    puts "\n=== Меню ==="
-    puts "1. Додати студента"
-    puts "2. Додати оцінку студенту"
-    puts "3. Показати всі оцінки студентів"
-    puts "4. Очистити всі дані"
-    puts "5. Вийти"
-    print "Ваш вибір: "
-    choice = gets.chomp.to_i
+    output.puts "\n=== Меню ==="
+    output.puts "1. Додати студента"
+    output.puts "2. Додати оцінку студенту"
+    output.puts "3. Показати всі оцінки студентів"
+    output.puts "4. Очистити всі дані"
+    output.puts "5. Вийти"
+    output.print "Ваш вибір: "
+    choice = io.gets&.chomp.to_i
 
     case choice
     when 1
-      print "Введіть ім'я студента: "
-      first_name = gets.chomp
-      print "Введіть прізвище студента: "
-      last_name = gets.chomp
+      output.print "Введіть ім'я студента: "
+      first_name = io.gets&.chomp
+      output.print "Введіть прізвище студента: "
+      last_name = io.gets&.chomp
 
       begin
         student = Student.new(first_name, last_name)
         students << student
-        puts "Студента #{student.full_name} додано."
+        output.puts "Студента #{student.full_name} додано."
       rescue ArgumentError => e
-        puts "Помилка: #{e.message}"
+        output.puts "Помилка: #{e.message}"
       end
 
     when 2
       if students.empty?
-        puts "Немає студентів. Додайте спочатку студента."
+        output.puts "Немає студентів. Додайте спочатку студента."
       else
-        puts "Оберіть студента, ввівши номер:"
+        output.puts "Оберіть студента, ввівши номер:"
         students.each_with_index do |student, index|
-          puts "#{index + 1}. #{student.full_name}"
+          output.puts "#{index + 1}. #{student.full_name}"
         end
 
-        student_index = gets.chomp.to_i - 1
+        student_index = io.gets&.chomp.to_i - 1
         if student_index.between?(0, students.size - 1)
-          print "Введіть оцінку (0-100): "
-          score = gets.chomp.to_f
+          output.print "Введіть оцінку (0-100): "
+          score = io.gets&.chomp.to_f
           begin
             students[student_index].grades.add_score(score)
-            puts "Оцінку #{score} додано студенту #{students[student_index].full_name}."
+            output.puts "Оцінку #{score} додано студенту #{students[student_index].full_name}."
           rescue ArgumentError => e
-            puts "Помилка: #{e.message}"
+            output.puts "Помилка: #{e.message}"
           end
         else
-          puts "Невірний вибір студента."
+          output.puts "Невірний вибір студента."
         end
       end
 
     when 3
       if students.empty?
-        puts "Немає даних для виводу."
+        output.puts "Немає даних для виводу."
       else
         rows = students.map do |student|
           [student.full_name, student.grades.scores.join(", "), student.grades.average]
@@ -152,22 +152,23 @@ def grades_menu
           headings: ["Прізвище та ім'я", "Оцінки", "Середній бал"],
           rows: rows
         )
-        puts table
+        output.puts table
       end
 
     when 4
       students.clear
-      puts "Усі дані очищено."
+      output.puts "Усі дані очищено."
 
     when 5
-      puts "Вихід з програми. До побачення!"
+      output.puts "Вихід з програми. До побачення!"
       break
 
     else
-      puts "Невірний вибір. Будь ласка, оберіть з пунктів меню."
+      output.puts "Невірний вибір. Будь ласка, оберіть з пунктів меню."
     end
   end
 end
+
 
 # Запуск програми
 grades_menu
